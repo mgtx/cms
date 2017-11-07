@@ -1,0 +1,22 @@
+<include file="Public:right_header" />
+<!--展示部分-->
+<div class="C_right_content">
+    <div class=" " >
+        <table border="1">
+            <tr class="">
+                <td>编号</td>
+                <td>管理员ID</td>
+                <td>创建时间</td>
+            </tr>
+            <foreach name="admin" item="item">
+                <tr  class=" ">
+                    <td>{$item.id}</td>
+                    <td>{$item.username}</td>
+                    <td>{$item.create_time}</td>
+                </tr>
+            </foreach>
+
+        </table>
+    </div>
+</div>
+

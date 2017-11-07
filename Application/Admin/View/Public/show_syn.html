@@ -1,0 +1,108 @@
+<div style="font-size: 18px;color:#fff3e7;">{$title_pre}已通过审批总业绩金额(元)：{$_date.sum}</div>
+<!--当月不同产品类型总业绩排名-->
+<table border="1" bgcolor="#deb887" >
+    <tr><th colspan="3">{$title_pre}产品总销售额排名</th></tr>
+    <tr>
+        <td>排名</td>
+        <td>产品名称</td>
+        <td>总销售额(元)</td>
+    </tr>
+    <?php if(empty($_date[products])){echo '<tr><td colspan="3">暂无排名</td></tr>'; ?>
+    <?php }else{  ?>
+    <foreach name="_date[products]" key="key" item="products">
+        <tr >
+            <td>{$key+1}</td>
+            <td>{$products.cause}</td>
+            <td>{$products.sum}</td>
+        </tr>
+    </foreach>
+    <?php ;} ?>
+</table>
+<br/>
+<!--同产品类型总业绩排名（默认显示排名第1的产品）-->
+<div>
+    选择产品：<select id="product" onchange="changeProducts('{$title_pre}')">
+    <foreach name="_date[products]" item="products">
+        <option value="{$products.cause}">{$products.cause}</option>
+    </foreach>
+</select>
+    <!--按个人排名-->
+    <table border="1" bgcolor="#deb887" id="Syn_personage">
+        <tr><th colspan="3">{$title_pre}个人产品总销售额排名</th></tr>
+        <tr>
+            <td>排名</td>
+            <td>姓名</td>
+            <td>总销售额(元)</td>
+        </tr>
+        <?php if(empty($_date[personage])){echo '<tr><td colspan="3">暂无排名</td></tr>'; ?>
+        <?php }else{  ?>
+        <foreach name="_date[personage]" key="key" item="personage">
+            <tr>
+                <td>{$key+1}</td>
+                <td>{$personage.name}</td>
+                <td>{$personage.sum}</td>
+            </tr>
+        </foreach>
+        <?php ;} ?>
+    </table>
+    <br/>
+    <!--按部门排名-->
+    <table border="1" bgcolor="#deb887" id="Syn_department">
+        <tr><th colspan="3">{$title_pre}部门产品总销售额排名</th></tr>
+        <tr>
+            <td>排名</td>
+            <td>部门名称</td>
+            <td>总销售额(元)</td>
+        </tr>
+        <?php if(empty($_date[department])){echo '<tr><td colspan="3">暂无排名</td></tr>'; ?>
+        <?php }else{  ?>
+        <foreach name="_date[department]" key="key" item="department">
+            <tr >
+                <td>{$key+1}</td>
+                <td>{$department.dep_name}</td>
+                <td>{$department.sum}</td>
+            </tr>
+        </foreach>
+        <?php ;} ?>
+    </table>
+</div>
+<br/>
+<!--部门总业绩排名-->
+<table border="1" bgcolor="#deb887" >
+    <tr><th colspan="3">{$title_pre}部门总销售额排名</th></tr>
+    <tr>
+        <td>排名</td>
+        <td>部门名称</td>
+        <td>总销售额(元)</td>
+    </tr>
+    <?php if(empty($_date[team_target])){echo '<tr><td colspan="3">暂无排名</td></tr>'; ?>
+    <?php }else{  ?>
+    <foreach name="_date[team_target]" key="key" item="target">
+        <tr >
+            <td>{$key+1}</td>
+            <td>{$target.dep_name}</td>
+            <td>{$target.sum}</td>
+        </tr>
+    </foreach>
+    <?php ;} ?>
+</table>
+<br/>
+<!--个人总业绩排名-->
+<table border="1" bgcolor="#deb887" >
+    <tr><th colspan="3">{$title_pre}个人总销售额排名</th></tr>
+    <tr>
+        <td>排名</td>
+        <td>姓名</td>
+        <td>总销售额(元)</td>
+    </tr>
+    <?php if(empty($_date[per_target])){echo '<tr><td colspan="3">暂无排名</td></tr>'; ?>
+    <?php }else{  ?>
+    <foreach name="_date[per_target]" key="key" item="target">
+        <tr >
+            <td>{$key+1}</td>
+            <td>{$target.name}</td>
+            <td>{$target.sum}</td>
+        </tr>
+    </foreach>
+    <?php ;} ?>
+</table>

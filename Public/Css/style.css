@@ -1,0 +1,442 @@
+
+*{font-family: "微软雅黑","宋体","Arial";padding: 0;margin: 0;}
+body {
+
+    background-color: #f9f9f9;
+
+    color: black;
+
+    font: 16px/1.5 arial,verdana;
+
+}
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td, button {
+
+    margin: 0;
+
+    padding: 0;
+
+    text-shadow: none;
+
+}
+
+label input {
+
+    text-shadow: none;
+
+    vertical-align: middle;
+
+}
+
+a:link, a:visited {
+
+    text-decoration: none;
+
+    text-shadow: none;
+
+    outline:none;
+
+    /*color: #fff;*/
+
+}
+
+a:hover, a:active {
+
+    text-decoration: none;
+
+    text-shadow: none;
+
+}
+
+html{
+    letter-spacing: 2px;
+    background: none repeat scroll 0 0 #f9f9f9;
+
+}
+
+body {
+
+    background-color: #f9f9f9;
+
+    color: black;
+
+    font: 16px/1.5 arial,verdana;
+
+    text-align: left;
+
+}
+
+img {
+
+    border: 0 none;
+
+}
+
+table {
+
+    border-collapse: collapse;
+
+}
+
+ul li {
+
+    list-style: none outside none;
+
+}
+
+a.hidefocus {
+
+    outline: medium none;
+
+}
+
+button.hidefocus::-moz-focus-inner {
+
+    border: medium none;
+
+}
+
+input, textarea, select {
+
+    outline: medium none;
+
+}
+
+.color_fff{
+
+    color: #ffffff;
+
+}
+
+
+
+
+
+/*=====公用=====*/
+
+.bos_red{
+
+    color: #f90052;
+
+}
+
+.button{
+
+    width:125px;
+
+    height:30px;
+
+    font-size:12px;
+
+    color:#fff;
+
+    cursor:pointer;
+
+    background:#272727;
+
+    border-radius:20px;
+
+    text-align:center;
+
+    line-height:30px;
+
+    display:block;
+
+}
+
+
+
+.center{
+
+    margin:auto;
+
+}.top10{
+
+    margin-top: 10px;
+
+}
+
+.top20{
+
+    margin-top: 20px;
+
+}
+
+.top30 {
+
+    margin-top: 30px;
+
+}
+
+.top40 {
+
+    margin-top: 40px;
+
+}
+
+.top50{
+
+    margin-top: 50px;
+
+}
+
+.top60{
+
+    margin-top: 60px;
+
+}
+
+.top70{
+
+    margin-top: 70px;
+
+}
+
+.top80 {
+
+    margin-top: 80px;
+
+}
+
+.top90{
+
+    margin-top: 90px;
+
+}
+
+.top130 {
+
+    margin-top: 130px;
+
+}
+
+.top150{
+
+    margin-top:150px;
+
+}
+
+.box_left{
+
+    text-align: left;
+
+    margin-left: 40px;
+
+}
+
+.bottom30{
+
+    margin-bottom: 30px;
+
+}
+
+/*=====登录页=====*/
+
+.login_submit{
+
+    background-color: #272727;
+
+    border: medium none;
+
+    border-radius: 3px;
+
+    color: #999999;
+
+    cursor: pointer;
+
+    font-weight: 600;
+
+    margin: 10px 10px 10px 0;
+
+    padding: 0 15px;
+
+    background-image: none;
+
+    height: 27px;
+    width:  100px;
+
+    line-height: 27px;
+
+    display: block;
+
+}
+
+.login .logos {
+
+    height: 55px;
+
+    width: 162px;
+
+}
+
+.login{
+
+    background: #73E41E;
+
+}
+
+.login .logos{
+
+    width: 162px;
+
+    height: 55px;
+
+}
+
+.login_magin{
+
+    width: 430px;
+
+    margin: 10% auto 5%;
+
+    text-align: center;
+
+}
+
+.login_box{
+
+    margin-top: 60px;
+
+}
+
+.login_box .login_input{
+
+    margin-top: 15px;
+
+    text-align: center;
+
+}
+
+.login_box .login_input input{
+
+    width: 320px;
+
+    border-radius: 0px;
+
+    height: 20px;
+
+    line-height: 20px;
+
+    padding: 10px;
+
+    color: #B4B4B4;
+
+    margin: 0px;
+
+    border: 0 none;
+    border-radius: 5px;
+
+}
+
+.login_submit_box .login_submit {
+
+    border-radius: 15px;
+
+    color: #555555;
+
+    font-size: 12px;
+
+    margin: 0 0 0 10px;
+
+    padding: 6px 15px;
+
+    text-shadow: none;
+
+    margin: 10px 10px 10px 0;
+
+    cursor: pointer;
+
+    font-weight: 600;
+
+    background-color: #272727;
+
+    display: inline-block;
+
+    height: auto;
+
+    line-height: 19px;
+
+}
+
+.login_submit_box{
+
+    width:340px;
+
+    margin: 30px auto 0;
+
+    text-align: right;
+
+}
+
+.login_submit_box .login_submit:hover{
+
+    text-shadow:none;
+
+    color: #e5e5e5;
+
+}
+
+
+/*-------前台CSS  end------*/
+
+
+
+/*-------后台CSS  start------*/
+.active a{
+    color: #fff;
+}
+.C_right_content .status_active_red{
+    color: red;
+}
+.C_right_content .status_active_green{
+    color: green;
+}
+
+.bos_inline{
+    width: 100%;
+    height: 2px;
+    background: #fff;
+}
+.animsition{
+    background: #fff;
+    width: 100%;
+    height: 900px;
+}
+.animsition .left_nav{
+    height: 100%;
+    width: 12%;
+    background: #2a2a2a;
+    float: left;
+}
+
+.animsition .left_nav_other{
+    height: 50px;
+}
+.animsition .right_content{
+    height: 100%;
+    width: 87.9%;
+    background: #2a2a2a;
+    margin-left: 12.1%;
+}
+
+.right_content .C_right_top{
+    width: 100%;
+    height: 60px;
+    border-bottom: #fff 2px solid;
+}
+
+.C_right_top div,.C_right_top input{
+    float: left;
+    margin-left: 20px;
+    font-size: 18px;
+
+}
+.C_right_top div,.C_right_content td{
+    color: #fff
+}
+.admin_list{
+    margin-top: 15px;
+    margin-left: 200px;
+}
+
+/*-------后台CSS  end------*/

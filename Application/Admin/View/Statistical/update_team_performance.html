@@ -1,0 +1,99 @@
+<include file="Public:right_header" />
+
+
+<div>
+	<table border="1" bgcolor="#deb887" id="Syn_personage">
+        <tr>
+
+            <td>姓名</td>
+            <td>金额(元)</td>
+            <td>单位名称</td>
+            <td>收款原因</td>
+            <td>时间</td>
+            <td>业绩所属</td>
+        </tr>
+
+        <foreach name="data" key="key" item="personage">
+            <tr>
+
+                <td>{$personage.name}</td>
+                <td>{$personage.money}</td>
+                <td>{$personage.units_name}</td>
+                <td>{$personage.cause}</td>
+                <td>{$personage.create_time}</td>
+
+
+                <td onclick="w(this);" log_id="{$personage.id}" time="{$personage.create_time}">{$personage.dep_name}</td>
+                
+            </tr>
+        </foreach>
+        <script type="text/javascript">
+        	function w(obj){
+                $(obj).html("<select  mouseout='r(this);' onchange='newteam(this);' class='newteam' name='newteam'>"+"{$dep}"+"</select>");
+                $(obj).removeAttr("onclick")
+        	}
+        	function f(obj){
+$(obj).parent().attr("onclick","w(this);")
+        		$(obj).parent().html($(obj).find("option:selected").text())
+        	}
+        	function newteam(obj){
+        		var log_id = $(obj).parent().attr('log_id');
+        		var newteam = $(obj).find("option:selected").val();
+        		var time = $(obj).parent().attr('time');
+        		$.ajax({
+        			type:"get",
+        			url:"{:U('statistical/update_team_performance')}",
+        			async:true,
+        			data:'log_id='+log_id+'&newteam='+newteam,
+        			dataType:'text',
+        			success:function(data){
+        				if(data == 0){
+        					$(obj).parent().attr("onclick","w(this);")
+        					$(obj).parent().html($(obj).find("option:selected").text())
+        				}
+        			}
+        		});
+        		
+			};
+			function r(obj){
+        		$(obj).parent().attr("onclick","w(this);")
+        		$(obj).parent().html($(obj).find("option:selected").text())
+			};
+        </script>
+		 <tr class="content">
+                <!--<td colspan="3" bgcolor="#FFFFFF">&nbsp;{$page}</td>-->
+                <td colspan="3" bgcolor="#FFFFFF"><div class="pages">
+                        {$page}
+                </div></td>  
+            </tr>
+            <style type="text/css">
+            	.pages a,.pages span {
+				    display:inline-block;
+				    padding:2px 5px;
+				    margin:0 1px;
+				    border:1px solid #f0f0f0;
+				    -webkit-border-radius:3px;
+				    -moz-border-radius:3px;
+				    border-radius:3px;
+				}
+				.pages a,.pages li {
+				    display:inline-block;
+				    list-style: none;
+				    text-decoration:none; color:#58A0D3;
+				}
+				.pages a.first,.pages a.prev,.pages a.next,.pages a.end{
+				    margin:0;
+				}
+				.pages a:hover{
+				    border-color:#50A8E6;
+				}
+				.pages span.current{
+				    background:#50A8E6;
+				    color:#FFF;
+				    font-weight:700;
+				    border-color:#50A8E6;
+				}
+            </style>
+    </table>
+    <br/>
+</div>

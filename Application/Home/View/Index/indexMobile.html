@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"><!--定义宽度，缩放比例-->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="renderer" content="webkit"><!--默认用极速核-->
+    <!--meta http-equiv="Cache-Control" content="no-siteapp"--><!--不让页面缓存，每次访问必须到服务器读取-->
+    <meta name="keywords" content="关键字">
+    <meta name="description" content="主要内容">
+    <meta name="robots" content="all">
+    <!--<meta http-equiv="refresh" content="60">-->
+    <!--设定为all：文件将被检索，且页面上的链接可以被查询；
+    设定为none：文件将不被检索，且页面上的链接不可以被查询；
+    设定为index：文件将被检索；
+    设定为follow：页面上的链接可以被查询；
+    设定为noindex：文件将不被检索，但页面上的链接可以被查询；
+    设定为nofollow：文件可以被检索，但是页面上的链接不可以被查询。-->
+    <meta name="author" content="作者">
+    <!-- CSS -->
+    <import type="css" file="Css.style,Css.bootstrap#min,Css.indexMobile" />
+    <!-- 引入 jQuery -->
+    <import file="Js.jquery-1#11#1#min,Js.jquery-1#9#0#min,Js.jquery-3#1#1#min" />
+    <import file="Js.MyJs,Js.bootstrap#min" />
+
+    <title>业务展示首页</title>
+</head>
+<body>
+<!--<div><a href="{:U('/Admin')}" target="_Blank">进入后台</a></div>-->
+<div class="box">
+	<div class="star pull-left">
+		<div id='stars'></div>
+	    <div id='stars2'></div>
+	    <div id='stars3'></div>
+	</div>
+    <div class="box1">
+    		<div class="row text-center">
+    			<div class="title">
+    				<p>名冠天下业绩栏</p>
+    			</div>
+    		</div>
+    		<div class="row row1">
+    			<div class="carousel_header">
+		    		<marquee>
+			       	<foreach name="dep_date" Key="key" item="item">
+			       		<span><strong>恭喜：</strong><strong>{$item.dep_name}</strong>--<strong>{$item.name}</strong>成交<strong>{$item.cause}</strong>&nbsp;,&nbsp;年限为：<strong>{$item.age_limit}</strong>，金额为：<strong>&yen;{$item.money}</strong>元.</span>
+			       	</foreach>
+			       </marquee>
+		    	</div>
+		    	<div class="carousel_nav text-center">
+		    		<ul>
+		    			<li class="col-xs-4 pull-left">{$index_date.year_target.year}年代目标</li>
+		    			<li class="col-xs-4 pull-left">剩余</li>
+		    			<li class="col-xs-4 pull-left">已完成</li>
+		    			<li class="col-xs-4 pull-left">&yen;：{$index_date.year_target.complete}</li>
+		    			<li class="col-xs-4 pull-left">&yen;：{$index_date.year_target.target}</li>
+		    			<li class="col-xs-4 pull-left">&yen;：{$index_date.year_target.surplus}</li>
+		    		</ul>
+		    	</div>
+		    	<div class="clearfix"></div>
+		    	<div class="carousel_content_left text-center col-lg-3 col-md-3 col-sm-3">
+	    			<ul>
+	    				<li class="col-xs-12 pull-left"><strong><?php echo substr($index_date[month_target][month],-2); ?>月份集体目标</strong></li>
+	    				<li class="col-xs-3 pull-left left_a">目标</li>
+	    				<li class="col-xs-3 pull-left left_a">已完成</li>
+	    				<li class="col-xs-3 pull-left left_a">剩余</li>
+	    				<li class="col-xs-3 pull-left left_a">剩余天数</li>
+	    				<li class="col-xs-3 pull-left left_b">{$index_date.month_target.target}</li>
+	    				<li class="col-xs-3 pull-left left_b">{$index_date.month_target.complete}</li>
+	    				<li class="col-xs-3 pull-left left_b">{$index_date.month_target.surplus}</li>
+	    				<li class="col-xs-3 pull-left left_b">{$index_date.surplus_day}</li>
+	    			</ul>
+	    		</div>
+	    		<div class="clearfix line"></div>
+		    	<div class="carousel_content1">
+		    		<div class="content_right_l">
+	    				<?php if(empty($dep_date)){echo '
+				                <div class="carousel_middle_right_content">
+				            <div>暂无数据</div>
+				        </div>
+				        <?php ';}else{  ?>
+		    				<foreach name="dep_date" Key="key" item="item">
+		    					<ul class="content_right_l_ul">
+			    					<li class="gongxi text-center"><strong>恭喜!!!</strong></li>
+			    					<li class="text-center l_ul_img"><img src="{$item.avatar}" alt="" width="300" class="img-responsive"></li>
+			    					<li class="left_ul_li1"><p>组员:<strong class="name">{$item.name}</strong></p></li>
+			    					<li class="left_ul_li1"><p>成交额:<strong><span class="money">{$item.money}</span></strong>元</p></li>
+			    					<li class="left_ul_li1"><p>所属小组:<strong>{$item.dep_name}</strong></p></li>
+			    					<li class="left_ul_li1"><p>组长:<strong>{$item.leader}</strong></p></li>
+			    					<li class="left_ul_li1"><p>产品类型:<strong>{$item.cause}</strong></p></li>
+			    					<li class="left_ul_li1"><p>用户数:<strong>{$item.user_num}</strong></p></li>
+			    					<li class="left_ul_li1"><p>产品年限:<strong>{$item.age_limit}</strong></p></li>
+			    				</ul>
+		    				</foreach>
+		    			<?php ;} ?>	
+		    		</div>
+		    	</div>
+		    	<div class="clearfix"></div>
+		    		<div class="carousel_content2 ">
+		    			<div class="content_right_r ">
+		    				<div class="table_header text-center">
+		    					<p>本月<strong>个人</strong>业绩完成情况(按业绩排名)</p>
+		    				</div>
+		    				<div class="t_d">
+			    				<ul class="table_div">
+								    <li class="table2 table-responsive table_height show">
+				    					<table class="table table-bordered" border="1" bordercolor="#999999">
+										    <thead>
+										    	<tr class="t1_tr1">
+											        <th>排名</th>
+											        <th>姓名</th>
+											        <th>业绩目标</th>
+											        <th>已完成</th>
+											        <th>剩余</th>
+											        <th>是否完成</th>
+											    </tr>
+										    </thead>
+										    <?php if(empty($dep_per)){echo '
+										        <tr><td colspan="6">本月未设置任何个人目标</td></tr>
+										    <?php ';}else{  ?>
+										    <foreach name="dep_per" key="k" item="per">
+										        <tr class="t1_tr2">
+										            <td>{$k+1}</td>
+										            <td>{$per.name}</td>
+										            <td>{$per.target}</td>
+										            <td>{$per.complete}</td>
+										            <td>{$per.surplus}</td>
+										            <td style="color:{:($per['flg']=='已完成')?'green':'red'}"  >{$per.flg}</td>
+										        </tr>
+										    </foreach>
+										    <?php ;} ?>
+										</table>
+				    				</li>
+				    				<li class="table1 table-responsive table_height">
+				    					<table class="table table-bordered" border="1" bordercolor="#999999">
+										    <thead>
+											    <tr class="t1_tr1">
+											        <th>排名</th>
+											        <th>团队名称</th>
+											        <th>组长</th>
+											        <th>业绩目标</th>
+											        <th>已完成</th>
+											        <th>剩余</th>
+											        <th>是否完成</th>
+											    </tr>
+										    </thead>
+										    <?php if(empty($dep_team)){echo '
+										        <tr><td colspan="7">本月未设置任何团队目标</td></tr>
+										    <?php ';}else{  ?>
+										        <foreach name="dep_team" key="key" item="team">
+										            <tr class="t1_tr2">
+										                <td>{$key+1}</td>
+										                <td>{$team.dep_name}</td>
+										                <td>{$team.leader}</td>
+										                <td>{$team.target}</td>
+										                <td>{$team.complete}</td>
+										                <td>{$team.surplus}</td>
+										                <td style="color:{:($team['flg']=='已完成')?'green':'red'}" >{$team.flg}</td>
+										            </tr>
+										        </foreach>
+										    <?php ;} ?>
+										</table>
+				    				</li>
+			    				</ul>
+			    			</div>
+		    			</div>
+		    		</div>
+		    	<div class="clearfix"></div>
+	    		<div class="content_bottom text-center">
+			    	<ul>
+				       	<foreach name="dep_date" Key="key" item="item">
+				       		<li><strong>恭喜：</strong><strong>{$item.dep_name}</strong>--<strong>{$item.name}</strong>成交<strong>{$item.cause}</strong>&nbsp;,&nbsp;年限为：<strong>{$item.age_limit}</strong>，金额为：<strong>&yen;{$item.money}</strong>元.</li>
+				       	</foreach>
+				    </ul>
+	    	    </div>
+    	</div>
+    </div>
+</div>
+    <!--轮播 start-->
+	
+
+<!--轮播 end-->
+</body>
+</html>
+<script>
+	$(function(){
+		var oWidth = $(window).height();  //屏幕宽度
+		var oLenght = $('.content_right_l .content_right_l_ul').length;
+		var oHeight1 = $('.carousel_content1').height();
+		var iNow = 0;
+		function move(a,b,c){
+			var timer1 = setInterval(show1,c);
+			    function show1(){
+			    	iNow++;
+			    	if(iNow < oLenght){
+						a.animate({'marginTop':-b*iNow+'px'},1000);
+					}
+					if(iNow == oLenght){
+						a.animate({'marginTop':0+'px'},1000);
+					    iNow=0;
+					}
+			    }
+			return show1();
+		}
+		
+	    move($('.content_right_l'),oHeight1,4000);  //恭喜  轮播 
+	})
+    //集体
+    
+    var oLength2 = $('.table_div li').length;
+   
+    function move2(){
+    	setInterval(show2,10000);
+    	 var iNow2 = -1;
+    	function show2(){
+    		iNow2++;
+    		if(iNow2<oLength2){
+    			$('.table_header p strong').html('个人');
+    			$('.table_div li').eq(iNow2).addClass('show').siblings().removeClass('show');
+    		}
+    		if(iNow2 == oLength2-1){
+    			$('.table_header p strong').html('团队');
+    			iNow2 =-1;
+    		}
+    	}
+    	return show2();
+    }
+    	move2();
+    $('.table_div li').eq(0).addClass('show');	
+    var oLenght_li = $('.content_bottom li').length;  
+    var iNow3=0;
+	    function show3(){
+			if(iNow3<oLenght_li){
+	    	    $('.content_bottom li').eq(iNow3).addClass('show').siblings().removeClass('show');
+	    	    iNow3++;
+	       }
+			if(iNow3 == oLenght_li){
+				iNow3=0;
+			}
+	    }
+	   setInterval(show3,8000);
+	   
+</script>

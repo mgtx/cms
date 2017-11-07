@@ -1,0 +1,26 @@
+<include file="Public:right_header" />
+<!--展示部分-->
+<div class="C_right_content">
+    <div class="team_list" >
+        <table>
+            <tr class="">
+                <td>编号</td>
+                <td>部门名称</td>
+                <td>设置月目标</td>
+                <td>设置状态</td>
+            </tr>
+            <?php if(empty($teams)){ echo"<tr><td colspan='4'>请先同步部门信息</td></tr>" ;?>
+            <?php }else{?>
+                <foreach name="teams" key="key" item="item">
+                    <tr>
+                        <td>{$key+1}</td>
+                        <td>{$item.dep_name}</td>
+                        <td class="status_active_{:($item['status']==0)?'red">否':'green">是'}</td>
+                        <td><a href="{:U('Team/set_dep',array('dep_id'=>$item['dep_id'],'status'=>$item['status']))}">{:($item['status']==0)?'设置':'取消'}</a></td>
+                    </tr>
+                </foreach>
+            <?php ;}?>
+        </table>
+        </table>
+    </div>
+</div>

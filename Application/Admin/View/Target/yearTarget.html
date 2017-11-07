@@ -1,0 +1,14 @@
+<!--工具栏-->
+<include file="Public:right_header" />
+<!--展示部分-->
+<div class="C_right_content">
+    <div>更新设置{$yearsDate['year']}年的总目标：
+        <form action="{:U('Target/yearTarget')}" method="post">
+            <input type="text" name="target" value="{$yearsDate['target']}" >元
+            <input type="submit" name="submit">
+        </form>
+    </div>
+    <div>{$yearsDate['year']}年</div>
+    <div>年度总目标：{$yearsDate['target']}元</div>
+</div>
+

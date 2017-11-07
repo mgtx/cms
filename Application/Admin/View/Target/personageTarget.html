@@ -1,0 +1,35 @@
+<include file="Public:right_header" />
+<!--展示部分-->
+<div class="C_right_content">
+    <table>
+        <tr>
+            <td>员工名称</td>
+            <td>月份</td>
+            <td>目标额</td>
+            <td>操作</td>
+        </tr>
+        <foreach name="users" item="team">
+            <tr><td>{$team.dep}</td></tr>
+            <?php if(empty($team[users])){echo '<tr><td>团队还没有成员</td></tr>'; ?>
+            <?php }else{  ?>
+                <foreach name="team[users]" item="user">
+                    <tr>
+                        <td>{$user.name}</td>
+                        <td>{$month}</td>
+                        <input type="hidden" value="{$user.userid}" name="userid" id="userid_{++$num}">
+                        <input type="hidden" value="{$user.name}" name="name" id="name_{$num}">
+                        <td><input type="text" value="{$user.target}" name="target" id="target_{$num}" onchange="target_change('{$num}')"></td>
+                        <td><button onclick="changeTarget('{$num}')">提交</button></td>
+                    </tr>
+                </foreach>
+            <?php ;} ?>
+        </foreach>
+    </table>
+    <form action="{:U('Target/personagePost')}" method="post" name="targetAll" onsubmit = "return all_change()">
+        <input type="hidden" name="userids" value="" id="userid_str">
+        <input type="hidden" name="names" value="" id="name_str">
+        <input type="hidden" name="targets" value="" id="target_str">
+        <input type="submit" value="全部提交">
+    </form>
+</div>
+

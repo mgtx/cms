@@ -1,0 +1,1 @@
+D:\phpStudy\php55n\php.exe -q D:\phpStudy\WWW\public_html\AutoCurl.php

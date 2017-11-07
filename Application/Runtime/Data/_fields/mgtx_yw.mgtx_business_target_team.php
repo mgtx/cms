@@ -1,0 +1,1 @@
+a:9:{i:0;s:2:"id";i:1;s:6:"dep_id";i:2;s:8:"dep_name";i:3;s:6:"leader";i:4;s:5:"month";i:5;s:6:"target";i:6;s:8:"complete";s:3:"_pk";s:2:"id";s:5:"_type";a:7:{s:2:"id";s:7:"int(11)";s:6:"dep_id";s:11:"varchar(20)";s:8:"dep_name";s:11:"varchar(30)";s:6:"leader";s:11:"varchar(40)";s:5:"month";s:11:"varchar(10)";s:6:"target";s:7:"int(11)";s:8:"complete";s:7:"int(11)";}}

@@ -1,0 +1,38 @@
+<include file="Public:right_header" />
+<!--展示部分-->
+<div class="C_right_content">
+    <div >
+        <form action="{:U('Target/teamTarget')}" method="post">
+
+            <label>部门：</label><select name="dep_name" id="deps">
+            <option value="0">请选择部门</option>
+            <foreach name="deps" item="item">
+                <option value="{$item.dep_name}_{$item.dep_id}" name="dep_name">{$item.dep_name}</option>
+            </foreach>
+        </select>
+            <label>目标额：</label><input type="text" name="target">
+            <input type="hidden" name="month" value="{$month}">
+            <input type="submit" name="submit" value="提交">
+        </form>
+        <hr/>
+        <table>
+            <tr>
+            <tr><th colspan="3">团队{$month}月份目标</th></tr>
+            <tr>
+                <td>部门编号</td>
+                <td>部门名称</td>
+                <td>月目标(元)</td>
+            </tr>
+            <?php if(empty($team_month_target)){echo '<tr><td colspan="3">当月还未设置任何月目标团队</td></tr>';?>
+            <?php }else{ ?>
+                <foreach name="team_month_target" item="team">
+                    <tr>
+                        <td>{$team.id}</td>
+                        <td>{$team.dep_name}</td>
+                        <td>{:$team['target']?$team['target']:0}</td>
+                    </tr>
+                </foreach>
+            <?php ;} ?>
+        </table>
+    </div>
+</div>

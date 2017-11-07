@@ -1,0 +1,1 @@
+a:8:{i:0;s:2:"id";i:1;s:6:"dep_id";i:2;s:8:"dep_name";i:3;s:8:"parentid";i:4;s:5:"order";i:5;s:6:"status";s:3:"_pk";s:2:"id";s:5:"_type";a:6:{s:2:"id";s:10:"tinyint(4)";s:6:"dep_id";s:11:"varchar(20)";s:8:"dep_name";s:11:"varchar(30)";s:8:"parentid";s:7:"int(11)";s:5:"order";s:11:"varchar(20)";s:6:"status";s:10:"tinyint(1)";}}

@@ -1,0 +1,17 @@
+<include file="Public:right_header" />
+<!--展示部分-->
+<div class="C_right_content">
+    <div>更新设置{$monthDate['month']}月的总目标：
+        <form action="{:U('Target/monthTarget')}" method="post">
+            <input type="text" name="target" value="{$monthDate['target']}" >元
+            <input type="submit" name="submit">
+        </form>
+    </div>
+    <div>{$monthDate['month']}月</div>
+    <div>月总目标：{$monthDate['target']}元</div>
+    <div>已完成：{$monthDate['done']}元</div>
+
+</div>
+
+
+

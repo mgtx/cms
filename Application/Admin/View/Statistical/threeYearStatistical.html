@@ -1,0 +1,45 @@
+<include file="Public:right_header" />
+<!--统计展示 start-->
+<div style="font-size: 18px;color:#fff3e7;">{$title_pre}已通过审批总业绩金额(元)：{$_date.sum}</div>
+
+<!--部门总业绩排名-->
+<table border="1" bgcolor="#deb887" >
+    <tr><th colspan="3">{$title_pre}部门总销售额排名</th></tr>
+    <tr>
+        <td>排名</td>
+        <td>部门名称</td>
+        <td>总销售额(元)</td>
+    </tr>
+    <?php if(empty($_date[team_target])){echo '<tr><td colspan="3">暂无排名</td></tr>'; ?>
+    <?php }else{  ?>
+    <foreach name="_date[team_target]" key="key" item="target">
+        <tr >
+            <td>{$key+1}</td>
+            <td>{$target.dep_name}</td>
+            <td>{$target.sum}</td>
+        </tr>
+    </foreach>
+    <?php ;} ?>
+</table>
+<br/>
+<!--个人总业绩排名-->
+<table border="1" bgcolor="#deb887" >
+    <tr><th colspan="3">{$title_pre}个人总销售额排名</th></tr>
+    <tr>
+        <td>排名</td>
+        <td>姓名</td>
+        <td>总销售额(元)</td>
+    </tr>
+    <?php if(empty($_date[per_target])){echo '<tr><td colspan="3">暂无排名</td></tr>'; ?>
+    <?php }else{  ?>
+    <foreach name="_date[per_target]" key="key" item="target">
+        <tr >
+            <td>{$key+1}</td>
+            <td>{$target.name}</td>
+            <td>{$target.sum}</td>
+        </tr>
+    </foreach>
+    <?php ;} ?>
+</table>
+
+<!--统计展示 end-->
