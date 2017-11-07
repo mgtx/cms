@@ -135,13 +135,21 @@ class IndexController extends AuthController {
         if(empty($User_ids)){  //首次同步
             $M_employee->addAll($Users);
         }else{//数据更新
-            $Userids = array_column($User_ids, 'userid');
+            $Userids  = array_column($User_ids, 'userid');
+            $Useridss = array_column($Users, 'userid');
+            
             $update = $Users;
             foreach($update as $key=>$item){
                 if(in_array($item['userid'],$Userids)){
                     unset($update[$key]);
                 }
             }
+			foreach ($User_ids as $key => $value) {
+				if(!in_array($value['userid'],$Useridss)){
+                	$sta = array('status'=>0);
+                	$M_employee->where(array('userid'=>"$value[userid]"))->save($sta);
+                }
+			}
             if(!empty($update)){//新增
                 foreach($update as $v){
                     $M_employee->add($v);
