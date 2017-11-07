@@ -257,7 +257,7 @@ class IndexController extends Controller {
 
             }
         }
-        $data_refund = get_ding_refund_list($Token,0000000000000);
+        $data_refund = get_ding_refund_list($Token,$startTime);
 //		print_r($data_refund);die();
 		//      //新增数据
         if(!empty($data_refund)){
