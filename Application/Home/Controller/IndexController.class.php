@@ -178,6 +178,11 @@ class IndexController extends Controller {
 
         //常规拉取数据
         $data_list = get_ding_talk_list($Token,$startTime);
+        foreach ($data_list as $key => $value) {
+        	if($value['userid'] == 0502083252853132){
+        		$data_list[$key]['userid'] = 0502083252854815;
+        	}
+        }
 
         //新增数据
         if(!empty($data_list)){
@@ -195,7 +200,9 @@ class IndexController extends Controller {
 
         //个人成交业务展示数据
         if(!empty($business_date)){
+//      	print_r($business_date);die();
             $usreIds = array_unique((array_column($business_date,'userid')));
+//			print_r($usreIds);die;
             $user_message = get_user_Message_leader_member($usreIds);
 
             $keys = array('cause','version','type','user_num','age_limit','money','create_time','process_id');
@@ -206,6 +213,7 @@ class IndexController extends Controller {
                 }
             }
         }
+
 //
 //      //存储最更新的业绩
 ////      if(!empty($_date)){
@@ -377,7 +385,7 @@ class IndexController extends Controller {
 
 
     function Syn_team_personage_target($_date){
-
+		set_time_limit(0);
         if($_date){
             foreach($_date as $item){
 //          	print_r($item);
@@ -385,50 +393,54 @@ class IndexController extends Controller {
                 $create_month       =   substr($item['create_time'],0,7);
 
                 $where_team         =   array('dep_id'=>$item['dep_now'],'month'=>$create_month);
-                $status = $this->M_dep->where("dep_id={$item[dep_now]}")->field('status')->find();
-//				echo $this->M_dep->_sql();
-                if($status['status']== 0){
-                    $status['status'] = 1;
-                    $this->M_dep->where("dep_id={$item[dep_now]}")->save($status);
-                }
-
-                $where_personage    =   array('userid'=>$item['userid'],'month'=>$create_month);
-
-                $team_target        =   $this->M_business_target_team->where($where_team)->find();
-                $personage_target   =   $this->M_business_target_personage->where($where_personage)->find();
-
-                if(empty($team_target)){
-                    $where_team['dep_name'] = $item['dep_name'];
-                    $where_team['leader'] = $item['leader'];
-                    $this->M_business_target_team->add($where_team);
-                }
-
-                if(empty($personage_target)){
-                    $where_personage['name'] = $item['name'];
-                    $this->M_business_target_personage->add($where_personage);
-                }
-
-                if($item[money] != 0){
-                    //team_target
-                    $this->M_business_target_team->where($where_team)->setInc('complete',$item[money]);
-
-                    //personage_target
-                    $this->M_business_target_personage->where($where_personage)->setInc('complete',$item[money]);
-		set_time_limit(0);
-					if(!$this->M_money_log->where("process_id = '$item[process_id]'")->find()){
-						$w = array(
-							'userid' 	=> $item[userid],
-							'name'	 	=> $item[name],
-							'date'	 	=> strtotime($item[create_time]),
-							'money'	 	=> $item[money],
-							'dep_id' 	=> $item[dep_now],
-							'process_id'=> $item[process_id]
-						);
-						$this->M_money_log->add($w);
-					}
+				if($item['dep_now']){
+                	$status = $this->M_dep->where("dep_id={$item[dep_now]}")->field('status')->find();
 					
-					
-                }
+	//				echo $this->M_dep->_sql();
+	                if($status['status']== 0){
+	                    $status['status'] = 1;
+	                    $this->M_dep->where("dep_id={$item[dep_now]}")->save($status);
+	                }
+	
+	                $where_personage    =   array('userid'=>$item['userid'],'month'=>$create_month);
+	
+	                $team_target        =   $this->M_business_target_team->where($where_team)->find();
+	                $personage_target   =   $this->M_business_target_personage->where($where_personage)->find();
+	
+	                if(empty($team_target)){
+	                    $where_team['dep_name'] = $item['dep_name'];
+	                    $where_team['leader'] = $item['leader'];
+	                    $this->M_business_target_team->add($where_team);
+	                }
+	
+	                if(empty($personage_target)){
+	                    $where_personage['name'] = $item['name'];
+	                    $this->M_business_target_personage->add($where_personage);
+	                }
+	
+	                if($item[money] != 0){
+	                    //team_target
+	                    $this->M_business_target_team->where($where_team)->setInc('complete',$item[money]);
+	
+	                    //personage_target
+	                    $this->M_business_target_personage->where($where_personage)->setInc('complete',$item[money]);
+	
+						if(!$this->M_money_log->where("process_id = '$item[process_id]'")->find()){
+							$w = array(
+								'userid' 	=> $item[userid],
+								'name'	 	=> $item[name],
+								'date'	 	=> strtotime($item[create_time]),
+								'money'	 	=> $item[money],
+								'dep_id' 	=> $item[dep_now],
+								'process_id'=> $item[process_id]
+							);
+							$this->M_money_log->add($w);
+						}
+						
+						
+	                }
+				}
+
 
             }
         }

@@ -232,19 +232,23 @@ function get_ding_refund_list($Token,$start_time,$end_time='',$cursor=0,$size=10
  */
 function get_user_Message_leader_member(array $userids){
     $M_mployee = M('mployee');
+//			print_r($userids);die();
     $M_department = M('department');
     foreach($userids as $id){
         $userMessages[$id] = $M_mployee->where("userid='{$id}'")->field('userid,name,dep_now,avatar')->find();
-        if($userMessages[$id]['avatar']==''){
-            $userMessages[$id]['avatar'] = PUBLIC_IMAGE."default_head.png";
-        }
-        //部门
-        $userMessages[$id][dep_name] = $M_department->where(array('dep_id'=>$userMessages[$id][dep_now]))->field('dep_name')->find()[dep_name];
-        //部门leader
-        $str_leader =  $userMessages[$id][dep_now].":true";
-        $where['depts'] = array('like', "%$str_leader%");
-        $userMessages[$id][leader] = implode(',',array_column($M_mployee->where($where)->field('name')->select(),'name'));
-
+		if($userMessages[$id]['userid']){
+			if($userMessages[$id]['avatar']==''){
+	            $userMessages[$id]['avatar'] = PUBLIC_IMAGE."default_head.png";
+	        }
+	        //部门
+	        $userMessages[$id][dep_name] = $M_department->where(array('dep_id'=>$userMessages[$id][dep_now]))->field('dep_name')->find()[dep_name];
+	        //部门leader
+	        $str_leader =  $userMessages[$id][dep_now].":true";
+	        $where['depts'] = array('like', "%$str_leader%");
+	        $userMessages[$id][leader] = implode(',',array_column($M_mployee->where($where)->field('name')->select(),'name'));
+		}else{
+			unset($userMessages[$id]);
+		}
     }
 
     return $userMessages;
