@@ -379,3 +379,15 @@ function getpage($count, $pagesize = 10) {
     $p->lastSuffix = false;//最后一页不显示为总页数
     return $p;
 }
+/**
+ *  用于POST异步请求的结果返回
+ */
+function show($status, $message, $data = array())
+{
+    $result = array(
+        'status' => $status,
+        'message' => $message,
+        'data' => $data
+    );
+    exit(json_encode($result));
+}
