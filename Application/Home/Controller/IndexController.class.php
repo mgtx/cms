@@ -279,6 +279,7 @@ class IndexController extends Controller {
                 }
             }
         };
+		$_date = array();
 		
 		 //个人成交业务展示数据
         if(!empty($refund_date)){
@@ -286,7 +287,7 @@ class IndexController extends Controller {
             $user_message = get_user_Message_leader_member($usreIds);
 
             $keys = array('cause','version','type','user_num','age_limit','money','create_time','process_id');
-			$_date = array();
+
             foreach($refund_date as $key => $value){
                 $_date[$key] = $user_message[$value['userid']];
                 foreach($keys as $k){
