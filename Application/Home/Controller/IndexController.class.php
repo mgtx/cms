@@ -179,8 +179,8 @@ class IndexController extends Controller {
         //常规拉取数据
         $data_list = get_ding_talk_list($Token,$startTime);
         foreach ($data_list as $key => $value) {
-        	if($value['userid'] == 0502083252853132){
-        		$data_list[$key]['userid'] = 0502083252854815;
+        	if($value['userid'] == '0502083252853132'){
+        		$data_list[$key]['userid'] = '0502083252854815';
         	}
         }
 
@@ -214,29 +214,27 @@ class IndexController extends Controller {
             }
         }
 
-//
-//      //存储最更新的业绩
-////      if(!empty($_date)){
-////         
-////			$show = '';
-////			foreach($_date as $value){
-////				if($value[type] == '新开'){
-////					$show[] = $value;
-////				}
-////			}
-////			if(!empty($show)){
-////				$return = $this->M_last_update->find();
-////				if($return){
-////              //清空表格
-////              $_sql = 'truncate table mgtx_last_update';
-////              $this->M_last_update->execute($_sql);
-////				}
-////				$this->M_last_update->addAll($show);
-////				//调用群机器人
-////				$this->toRobot($show);
-////			} 
-////      }
-//
+        //存储最更新的业绩
+        if(!empty($_date)){
+           
+			$show = '';
+			foreach($_date as $value){
+				if($value[type] == '新开'){
+					$show[] = $value;
+				}
+			}
+			if(!empty($show)){
+				$return = $this->M_last_update->find();
+				if($return){
+                //清空表格
+                $_sql = 'truncate table mgtx_last_update';
+                $this->M_last_update->execute($_sql);
+				}
+				$this->M_last_update->addAll($show);
+				//调用群机器人
+				$this->toRobot($show);
+			} 
+        }
         //统计年月总业绩完成额
         $this->Syn_year_month_target($_date);
         //统计团队和个人业绩
