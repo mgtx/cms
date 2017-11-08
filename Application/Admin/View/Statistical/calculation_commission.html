@@ -1,43 +1,96 @@
 <include file="Public:right_header" />
 
 
-<div class="">
+<div class="form-group-lg">
+	<div>
 
-	<form method="post" action="">
-		<div class="form-horizontal">
-			<div class="form-group">
-				<label>产品列表：</label>
-				<select  class="form-control" name="product">
-					<option>===</option>
-					<volist name="product" id="vo">
-						<option value="{$vo.name}">{$vo.name}</option>
-					</volist>
-				</select>
-			</div>
-			<div class="form-group">
-				<label>用户数：</label>
-				<input class="input-group" name="number" placeholder="请输入用户数">
-			</div>
-			<div class="form-group">
-				<label>产品版本：</label>
-				<select name="version">
-					<option>===</option>
-					<volist name="version" id="vo">
-						<option value="{$vo.version}">{$vo.version}</option>
-					</volist>
-				</select>
-			</div>
-			<div class="form-control">
-				<label>产品年限：</label>
-				<select name="productLife">
-					<option>===</option>
-					<volist name="productLife" id="vo">
-						<option value="{$vo.productlife}">{$vo.productlife}</option>
-					</volist>
-				</select>
-			</div>
+		<form method="post" id="condition">
+			<div class="form-horizontal">
+				<div class="form-group">
+					<label>员工：</label>
+					<select name="userid">
+						<volist name="user" id="vo">
+							<option value="{$vo.userid}">{$vo.name}</option>
+						</volist>
+					</select>
 
-		</div>
-	</form>
+					<label>产品列表：</label>
+					<select  class="form-control" name="cause">
+						<volist name="product" id="vo">
+							<option value="{$vo.name}">{$vo.name}</option>
+						</volist>
+					</select>
 
+
+					<!--<label>产品版本：</label>-->
+					<!--<select name="version">-->
+						<!--<volist name="version" id="vo">-->
+							<!--<option value="{$vo.version}">{$vo.version}</option>-->
+						<!--</volist>-->
+					<!--</select>-->
+
+					<!--<label>产品年限：</label>-->
+					<!--<select name="age_limit">-->
+						<!--<volist name="productLife" id="vo">-->
+							<!--<option value="{$vo.productlife}">{$vo.productlife}</option>-->
+						<!--</volist>-->
+					<!--</select>-->
+
+					<!--<label>类型：</label>-->
+					<!--<select name="type">-->
+						<!--<volist name="type" id="vo">-->
+							<!--<option value="{$vo.type_name}">{$vo.type_name}</option>-->
+						<!--</volist>-->
+					<!--</select>-->
+
+					<!--<label>折扣：</label>-->
+					<!--<select name="discount">-->
+						<!--<volist name="discount" id="vo">-->
+							<!--<option value="{$vo.discount}">{$vo.discount}</option>-->
+						<!--</volist>-->
+					<!--</select>-->
+
+					<button class="btn bg-primary" id="query">查询</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div style=" margin:10px;margin-top: 50px">
+		<table border="1" bgcolor="#deb887" id="Syn_personage">
+			<thead>
+
+				<td>姓名</td>
+				<td>金额(元)</td>
+				<td>单位名称</td>
+				<td>收款原因</td>
+				<td>时间</td>
+				<td>业绩所属</td>
+			</thead>
+		</table>
+	</div>
 </div>
+<script src="/Public/Js/dialog/layer.js"></script>
+<script src="/Public/Js/dialog.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$('#query').click(function(){
+
+			var data = $('#condition').serializeArray(),
+				postData = {},
+				url="{:U('statistical/calculation_commission')}";
+			$(data).each(function (i) {
+				postData[this.name] = this.value;
+			});
+			$.post(url,postData,function(result){
+				if(result.status == 0){
+					dialog.error(result.message);
+				}
+				if(result.status == 1){
+
+				}
+			},'json');
+
+			return false;
+		});
+	})
+</script>
