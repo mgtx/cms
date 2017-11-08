@@ -144,6 +144,7 @@ class IndexController extends AuthController {
                     unset($update[$key]);
                 }
             }
+			//对比本地与钉钉数据，发现不存在的用户进行停用
 			foreach ($User_ids as $key => $value) {
 				if(!in_array($value['userid'],$Useridss)){
                 	$sta = array('status'=>0);
