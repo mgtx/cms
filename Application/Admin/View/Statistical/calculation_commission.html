@@ -1,0 +1,43 @@
+<include file="Public:right_header" />
+
+
+<div class="">
+
+	<form method="post" action="">
+		<div class="form-horizontal">
+			<div class="form-group">
+				<label>产品列表：</label>
+				<select  class="form-control" name="product">
+					<option>===</option>
+					<volist name="product" id="vo">
+						<option value="{$vo.name}">{$vo.name}</option>
+					</volist>
+				</select>
+			</div>
+			<div class="form-group">
+				<label>用户数：</label>
+				<input class="input-group" name="number" placeholder="请输入用户数">
+			</div>
+			<div class="form-group">
+				<label>产品版本：</label>
+				<select name="version">
+					<option>===</option>
+					<volist name="version" id="vo">
+						<option value="{$vo.version}">{$vo.version}</option>
+					</volist>
+				</select>
+			</div>
+			<div class="form-control">
+				<label>产品年限：</label>
+				<select name="productLife">
+					<option>===</option>
+					<volist name="productLife" id="vo">
+						<option value="{$vo.productlife}">{$vo.productlife}</option>
+					</volist>
+				</select>
+			</div>
+
+		</div>
+	</form>
+
+</div>
