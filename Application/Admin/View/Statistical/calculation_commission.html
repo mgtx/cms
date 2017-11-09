@@ -1,98 +1,148 @@
-<include file="Public:right_header" />
 
+<link rel="stylesheet" href="/Public/Css/bootstrap.min.css">
+<link rel="stylesheet" href="/Public/Js/datepicker/bootstrap-datetimepicker.css">
+<script src="/Public/Js/datepicker/bootstrap-datepicker.js"></script>
+<script src="/Public/Js/datepicker/bootstrap-datepicker.zh-CN.min.js"></script>
 
-<div class="form-group-lg">
-	<div>
+<div id="page-wrapper">
 
-		<form method="post" id="condition">
-			<div class="form-horizontal">
-				<div class="form-group">
-					<label>员工：</label>
-					<select name="userid">
-						<volist name="user" id="vo">
-							<option value="{$vo.userid}">{$vo.name}</option>
-						</volist>
-					</select>
+    <div class="container-fluid">
+        <div class="row"  style="margin-top: 20px;">
+            <form method="post" id="condition">
 
-					<label>产品列表：</label>
-					<select  class="form-control" name="cause">
-						<volist name="product" id="vo">
-							<option value="{$vo.name}">{$vo.name}</option>
-						</volist>
-					</select>
+                <div class="col-lg-2 ">
+                    <div class="input-group">
+                        <span class="input-group-addon">员工：</span>
+                        <select class="form-control" name="userid">
+                            <volist name="user" id="vo">
+                                <option value="{$vo.userid}">{$vo.name}</option>
+                            </volist>
+                        </select>
+                    </div>
+                </div>
 
+                <div class="col-lg-2">
+                    <div class="input-group">
+                        <span class="input-group-addon">产品列表：</span>
+                        <select class="form-control" name="cause">
+                            <volist name="product" id="vo">
+                                <option value="{$vo.name}">{$vo.name}</option>
+                            </volist>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="input-group">
+                        <div class="input-group date" data-provide="datepicker" id="startDate" name="startDate">
+                            <span class="input-group-addon">开始时间</span>
+                            <input class="form-control " name="startDate" type="text" value="{$startDate}">
 
-					<!--<label>产品版本：</label>-->
-					<!--<select name="version">-->
-						<!--<volist name="version" id="vo">-->
-							<!--<option value="{$vo.version}">{$vo.version}</option>-->
-						<!--</volist>-->
-					<!--</select>-->
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-th"></span>
+                            </div>
+                        </div>
+                        <
+                    </div>
 
-					<!--<label>产品年限：</label>-->
-					<!--<select name="age_limit">-->
-						<!--<volist name="productLife" id="vo">-->
-							<!--<option value="{$vo.productlife}">{$vo.productlife}</option>-->
-						<!--</volist>-->
-					<!--</select>-->
+                </div>
+                <div class="col-lg-3">
+                    <div class="input-group">
+                        <div class="input-group date" data-provide="datepicker" id="endDate" name="endDate">
+                            <span class="input-group-addon">结束时间</span>
+                            <input class="form-control " name="endDate" type="text" value="{$endDate}">
 
-					<!--<label>类型：</label>-->
-					<!--<select name="type">-->
-						<!--<volist name="type" id="vo">-->
-							<!--<option value="{$vo.type_name}">{$vo.type_name}</option>-->
-						<!--</volist>-->
-					<!--</select>-->
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-th"></span>
+                            </div>
+                        </div>
+                        <
+                    </div>
 
-					<!--<label>折扣：</label>-->
-					<!--<select name="discount">-->
-						<!--<volist name="discount" id="vo">-->
-							<!--<option value="{$vo.discount}">{$vo.discount}</option>-->
-						<!--</volist>-->
-					<!--</select>-->
+                </div>
 
-					<button class="btn bg-primary" id="query">查询</button>
-				</div>
-			</div>
-		</form>
-	</div>
-	<div style=" margin:10px;margin-top: 50px">
-		<table border="1" bgcolor="#deb887" id="Syn_personage">
-			<thead>
+                <div class="col-lg-1">
+                    <button class="btn bg-primary" id="query">查询</button>
+                </div>
+            </form>
+            <div class="table" style=" margin:10px;margin-top: 50px">
+                <table class="table table-bordered table-hover" id="Syn_personage">
+                    <thead>
 
-				<td>姓名</td>
-				<td>金额(元)</td>
-				<td>单位名称</td>
-				<td>收款原因</td>
-				<td>时间</td>
-				<td>成交额</td>
-				<td>成本</td>
-				<td>提成</td>
-			</thead>
-		</table>
-	</div>
+                    <th>姓名</th>
+                    <th>类型</th>
+                    <th>成交额</th>
+                    <th>成本</th>
+                    <th>提成</th>
+                    </thead>
+                    <tbody id="commissionInfo">
+                    <tr>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+
+        </div>
+    </div>
+
 </div>
 <script src="/Public/Js/dialog/layer.js"></script>
 <script src="/Public/Js/dialog.js"></script>
 <script type="text/javascript">
-	$(function(){
-		$('#query').click(function(){
+    $(function () {
+        $("#startDate")
+                .datepicker({
+                    language: 'zh-CN',
+                    autoclose: true,
+                    clearBtn: true,
+                    todayBtn: true,
+                    todayHighlight: true,
+                    endDate: "time()"
+                })
+                .on('changeDate', function (v) {
+                    $("#endDate").datepicker('setStartDate', v.date);
+                });
+        $("#endDate")
+                .datepicker({
+                    language: 'zh-CN',
+                    autoclose: true,
+                    clearBtn: true,
+                    todayBtn: true,
+                    todayHighlight: true,
+                    endDate: "time()"
+                })
+                .on('changeDate', function (v) {
+                    $("#startDate").datepicker('setEndDate', v.date);
+                });
+        $('#query').click(function () {
 
-			var data = $('#condition').serializeArray(),
-				postData = {},
-				url="{:U('statistical/calculation_commission')}";
-			$(data).each(function (i) {
-				postData[this.name] = this.value;
-			});
-			$.post(url,postData,function(result){
-				if(result.status == 0){
-					dialog.error(result.message);
-				}
-				if(result.status == 1){
+            var data = $('#condition').serializeArray(),
+                    postData = {},
+                    url = "{:U('statistical/calculation_commission')}";
+            $(data).each(function (i) {
+                postData[this.name] = this.value;
+            });
+            $.post(url, postData, function (result) {
+                if (result.status == 0) {
+                    dialog.error(result.message);
+                }
+                if (result.status == 1) {
+                    var str = ''
+                    str = '<tr>' +
+                            '<td>' + result.data.username + '</td>' +
+                            '<td>' + result.data.type + '</td>' +
+                            '<td>' + result.data.sale + '</td>' +
+                            '<td>' + result.data.base + '</td>' +
+                            '<td>' + result.data.commission + '</td>' +
 
-				}
-			},'json');
+                            '</tr>';
+                    $('#commissionInfo').append(str);
+                }
+            }, 'json');
 
-			return false;
-		});
-	})
+            return false;
+        });
+    })
 </script>
