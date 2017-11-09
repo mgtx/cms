@@ -391,3 +391,90 @@ function show($status, $message, $data = array())
     );
     exit(json_encode($result));
 }
+
+/**
+ *  * 获取腾讯企业邮箱提成
+ * @param $result
+ * @return array
+ */
+function enterpriseEmail($result){
+    $sale =0;
+    $base =0;
+    foreach($result as $k=>$v){
+        $sale += $v['money'];
+        if($v['discount'] =='默认无折扣' ||$v['discount'] =='特殊审批价格'){
+            $base += $v['money']*0.5+$v['money']*0.06;
+        }else{
+            $base += ($v['money']/($v['discount']/10))*0.56;
+        }
+    }
+
+    //获取企业邮箱的提成点
+    switch(floor($sale/10000)){
+        case 0:
+        case 1:
+        case 2:
+            $commission = 0;    //3w以下没有提成
+            break;
+        case 3:
+        case 4:
+        case 5:
+            $commission = ($sale - $base) *0.03; // 3~5W 3%
+            break;
+        case 6:
+        case 7:
+        case 8:
+            $commission = ($sale - $base) *0.04; //5~8W 4%
+            break;
+        case 9:
+        case 10:
+            $commission = ($sale - $base) *0.05; //9~10W 5%
+            break;
+        default:
+            $commission = ($sale - $base) *0.06; //10W以上 5%
+            break;
+    }
+    return array(
+        'sale'=>$sale,
+        'base'=>$base,
+        'commission'=>round($commission,2)
+       );
+}
+
+/**
+ * 模板建设
+ * @param $result
+ * @return array
+ */
+
+function templateConstruction($result){
+    $base =0;
+    $sale =0;
+
+    foreach($result as $k=>$v){
+        $sale +=$v['money'];
+        $base +=$v*0.5;
+        $commission = (($base*0.1)<50) ? 50 : ($base*0.1);
+    }
+    return array(
+        'base'=>$base,
+        'sale'=>$sale,
+        'commission'=>$commission
+    );
+}
+
+function customWebsite($result){
+    $base =0;
+    $sale =0;
+    foreach($result as $k=>$v){
+        $sale +=$v['money'];
+        $base +=$v*0.5;
+        $commission = (($base*0.1)<50) ? 50 : ($base*0.1);
+    }
+    return array(
+        'base'=>$base,
+        'sale'=>$sale,
+        'commission'=>$commission
+    );
+}
+
