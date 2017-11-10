@@ -21,16 +21,16 @@
                     </div>
                 </div>
 
-                <div class="col-lg-2">
-                    <div class="input-group">
-                        <span class="input-group-addon">产品列表：</span>
-                        <select class="form-control" name="cause">
-                            <volist name="product" id="vo">
-                                <option value="{$vo.name}">{$vo.name}</option>
-                            </volist>
-                        </select>
-                    </div>
-                </div>
+                <!--<div class="col-lg-2">-->
+                    <!--<div class="input-group">-->
+                        <!--<span class="input-group-addon">产品列表：</span>-->
+                        <!--<select class="form-control" name="cause">-->
+                            <!--<volist name="product" id="vo">-->
+                                <!--<option value="{$vo.name}">{$vo.name}</option>-->
+                            <!--</volist>-->
+                        <!--</select>-->
+                    <!--</div>-->
+                <!--</div>-->
                 <div class="col-lg-2">
                     <div class="input-group">
                         <div class="input-group date" data-provide="datepicker" id="startDate" name="startDate">
@@ -64,7 +64,7 @@
                     <button class="btn bg-primary" id="query">查询</button>
                 </div>
             </form>
-            <div class="table" style=" margin:10px;margin-top: 50px">
+            <div class="table" style=" margin:10px;margin-top: 50px;">
                 <table class="table table-bordered table-hover" id="Syn_personage">
                     <thead>
 
@@ -75,9 +75,6 @@
                     <th>提成</th>
                     </thead>
                     <tbody id="commissionInfo">
-                    <tr>
-
-                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -129,15 +126,29 @@
                     dialog.error(result.message);
                 }
                 if (result.status == 1) {
+                    console.log(result)
                     var str = ''
+                    $('#commissionInfo').html('');
                     str = '<tr>' +
                             '<td>' + result.data.username + '</td>' +
-                            '<td>' + result.data.type + '</td>' +
-                            '<td>' + result.data.sale + '</td>' +
-                            '<td>' + result.data.base + '</td>' +
-                            '<td>' + result.data.commission + '</td>' +
-
-                            '</tr>';
+                            '<td>' + result.data.email[0] + '</td>' +
+                            '<td>' + result.data.email[1] + '</td>' +
+                            '<td>' + result.data.email[2] + '</td>' +
+                            '<td>' + result.data.email[3] + '</td>' +
+                            '</tr><tr>' +
+                            '<td>' + result.data.username + '</td>' +
+                            '<td>' + result.data.crm[0] + '</td>' +
+                            '<td>' + result.data.crm[1] + '</td>' +
+                            '<td>' + result.data.crm[2] + '</td>' +
+                            '<td>' + result.data.crm[3] + '</td>' +
+                            '</tr><tr>' +
+                            '<td>' + result.data.username + '</td>' +
+                            '<td>' + result.data.tmpwebsite[0] + '</td>' +
+                            '<td>' + result.data.tmpwebsite[1] + '</td>' +
+                            '<td>' + result.data.tmpwebsite[2] + '</td>' +
+                            '<td>' + result.data.tmpwebsite[3] + '</td>' +
+                            '</tr>'
+                    ;
                     $('#commissionInfo').append(str);
                 }
             }, 'json');
