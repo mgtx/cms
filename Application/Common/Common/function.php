@@ -397,20 +397,11 @@ function show($status, $message, $data = array())
  * @param $result
  * @return array
  */
-function enterpriseEmail($result){
-    $sale =0;
-    $base =0;
-    foreach($result as $k=>$v){
-        $sale += $v['money'];
-        if($v['discount'] =='默认无折扣' ||$v['discount'] =='特殊审批价格'){
-            $base += $v['money']*0.5+$v['money']*0.06;
-        }else{
-            $base += ($v['money']/($v['discount']/10))*0.56;
-        }
-    }
+function enterpriseEmail($emailBase,$emailSale){
+
 
     //获取企业邮箱的提成点
-    switch(floor($sale/10000)){
+    switch(floor($emailSale/10000)){
         case 0:
         case 1:
         case 2:
@@ -419,26 +410,22 @@ function enterpriseEmail($result){
         case 3:
         case 4:
         case 5:
-            $commission = ($sale - $base) *0.03; // 3~5W 3%
+            $commission = ($emailSale - $emailBase) *0.03; // 3~5W 3%
             break;
         case 6:
         case 7:
         case 8:
-            $commission = ($sale - $base) *0.04; //5~8W 4%
+            $commission = ($emailSale - $emailBase) *0.04; //5~8W 4%
             break;
         case 9:
         case 10:
-            $commission = ($sale - $base) *0.05; //9~10W 5%
+            $commission = ($emailSale - $emailBase) *0.05; //9~10W 5%
             break;
         default:
-            $commission = ($sale - $base) *0.06; //10W以上 5%
+            $commission = ($emailSale - $emailBase) *0.06; //10W以上 5%
             break;
     }
-    return array(
-        'sale'=>$sale,
-        'base'=>$base,
-        'commission'=>round($commission,2)
-       );
+    return round($commission,2);
 }
 
 /**
@@ -447,34 +434,17 @@ function enterpriseEmail($result){
  * @return array
  */
 
-function templateConstruction($result){
-    $base =0;
-    $sale =0;
-
-    foreach($result as $k=>$v){
-        $sale +=$v['money'];
-        $base +=$v*0.5;
-        $commission = (($base*0.1)<50) ? 50 : ($base*0.1);
+function templateConstruction($sale){
+    if($sale == 0){
+        return 0;
     }
-    return array(
-        'base'=>$base,
-        'sale'=>$sale,
-        'commission'=>$commission
-    );
+    return round(($sale*0.1))<50 ? 50 :round($sale*0.1);
 }
 
 function customWebsite($result){
-    $base =0;
-    $sale =0;
-    foreach($result as $k=>$v){
-        $sale +=$v['money'];
-        $base +=$v*0.5;
-        $commission = (($base*0.1)<50) ? 50 : ($base*0.1);
+    if($result == 0 ){
+        return 0;
     }
-    return array(
-        'base'=>$base,
-        'sale'=>$sale,
-        'commission'=>$commission
-    );
+    return round(($result*0.1))<50 ? 50 :round($result*0.1);
 }
 
