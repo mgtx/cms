@@ -20,7 +20,7 @@
                 <td>{$user.mobile}</td>
                 <td>{$user.dep_name}</td>
                 <td><a href="javascript:void(0);" onclick="save_user(this,{$user.userid})" ustatus="{$user.status}" >{$user.status_name}</a></td>
-                <td></td>
+                <td><a href="{:U('User/update',array('userid'=>$user[userid]))}">编辑</a></td>
                 
             </tr>
         </foreach>

@@ -214,27 +214,27 @@ class IndexController extends Controller {
             }
         }
 
-        //存储最更新的业绩
-        if(!empty($_date)){
-           
-			$show = '';
-			foreach($_date as $value){
-				if($value[type] == '新开'){
-					$show[] = $value;
-				}
-			}
-			if(!empty($show)){
-				$return = $this->M_last_update->find();
-				if($return){
-                //清空表格
-                $_sql = 'truncate table mgtx_last_update';
-                $this->M_last_update->execute($_sql);
-				}
-				$this->M_last_update->addAll($show);
-				//调用群机器人
-				$this->toRobot($show);
-			} 
-        }
+//      //存储最更新的业绩
+//      if(!empty($_date)){
+//         
+//			$show = '';
+//			foreach($_date as $value){
+//				if($value[type] == '新开'){
+//					$show[] = $value;
+//				}
+//			}
+//			if(!empty($show)){
+//				$return = $this->M_last_update->find();
+//				if($return){
+//              //清空表格
+//              $_sql = 'truncate table mgtx_last_update';
+//              $this->M_last_update->execute($_sql);
+//				}
+//				$this->M_last_update->addAll($show);
+//				//调用群机器人
+//				$this->toRobot($show);
+//			} 
+//      }
         //统计年月总业绩完成额
         $this->Syn_year_month_target($_date);
         //统计团队和个人业绩
@@ -392,8 +392,25 @@ class IndexController extends Controller {
                 $create_month       =   substr($item['create_time'],0,7);
 
                 $where_team         =   array('dep_id'=>$item['dep_now'],'month'=>$create_month);
+				//判断有没有指定产品对应指定小组业绩
+				$info = $this->M_mployee->where("userid=$item[userid]")->find();
+				if($info['dep_json']){
+					$dep_json = json_decode($info['dep_json'],true);
+					foreach ($dep_json as $key => $value) {
+						if($value['name'] == $item['cause']){
+							$where_team['dep_id'] = $value['value'];
+							$item['dep_now'] = $value['value'];
+						}
+					}
+					
+				}
 				if($item['dep_now']){
-                	$status = $this->M_dep->where("dep_id={$item[dep_now]}")->field('status')->find();
+
+                	$status = $this->M_dep->where("dep_id={$item[dep_now]}")->field('status,dep_name')->find();
+					$item['dep_name'] = $status['dep_name'];
+					$str_leader =  $item[dep_now].":true";
+			        $where['depts'] = array('like', "%$str_leader%");
+			        $item[leader] = implode(',',array_column($this->M_mployee->where($where)->field('name')->select(),'name'));
 					
 	//				echo $this->M_dep->_sql();
 	                if($status['status']== 0){

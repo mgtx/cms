@@ -1,0 +1,254 @@
+<include file="Public:right_header" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/AdminLTE.min.css"/>
+<script src="__PUBLIC__/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<style type="text/css">
+	.box-header:after, .box-body:after, .box-footer:after{
+		clear: none;
+	}
+</style>
+
+<div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">编辑用户信息</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form role="form">
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">姓名</label>
+                  <input type="text" readonly style="width: 400px;" class="form-control" id="exampleInputEmail1" placeholder="Enter email" value="{$info.name}" >
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">默认业绩所属               <a href="javascript:void(0);" onclick="w_dep(this);">修改</a></label>
+                  <select disabled="disabled" id="dep_now" name="dep_now" class="form-control" style="width: 400px;" onchange="r(this);">
+						<option value="-1">请选择产品</option>
+						<foreach name="dep_list" key="k" item="v" >
+							<option value="{$v.dep_id}"  <?php if($v['dep_id'] == $info['dep_now']){ echo "selected='selected'"; }?> > {$v.dep_name}</option>
+        				</foreach>
+					</select>
+
+                </div>
+                <div class="form-group">
+                
+					<div class="box">
+			            <div class="box-header with-border">
+			              <h3 class="box-title">指定产品业绩所属小组</h3>
+			            </div>
+			            <!-- /.box-header -->
+			            <div class="box-body">
+			              <table class="table table-bordered" style="width: 800px">
+			                <tbody>
+			                	<tr><th>指定产品</th><th>产品业绩所属</th><th>操作</th></tr>
+									<foreach name="info.dep_json" key="key" item="val" >
+									<tr><td>
+										<select disabled="disabled" id="product_list_{$key}" name="product_list_{$key}" class="form-control product_list" style="width: 150px;">
+										<option value="-1">请选择产品</option>
+										<foreach name="product_list" key="ke" item="va" >
+											<option value="{$va.productid}" <?php if($va['name'] == $val['name']){ echo "selected='selected'"; }?>  >{$va.name}</option>
+				        				</foreach>
+									</select>
+									</td>
+										<td>
+										<select disabled="disabled" id="dep_list_{$key}" name="dep_list_{$key}" class="form-control" style="width: 150px;" onchange="r(this);">
+										<option value="-1">请选择产品</option>
+										<foreach name="dep_list" key="k" item="v" >
+											<option value="{$v.dep_id}"  <?php if($v['dep_id'] == $val['value']){ echo "selected='selected'"; }?> > {$v.dep_name}</option>
+				        				</foreach>
+									</select>
+										</td>
+									<td>
+										<a href="javascript:void(0);" onclick="w(this,{$key});">修改</a>
+										<a href="javascript:void(0);" onclick="remove(this,{$key});">删除</a>
+									</td>
+									</tr>
+									</foreach>
+			              </tbody></table>
+			            </div>
+			            <!-- /.box-body -->
+			            
+			          </div>
+			
+					
+                </div>
+                
+                
+              </div>
+              <!-- /.box-body -->
+
+              <div class="box-footer">
+                <!--<button type="submit" class="btn btn-primary">提交</button>-->
+              
+  				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">添加</button>
+              
+  			</div>
+              
+              <div class="container">
+  <!-- Trigger the modal with a button -->
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">添加</h4>
+        </div>
+        <div class="modal-body">
+           <table class="table table-bordered">
+			                <tbody>
+			                	<tr><th>指定产品</th><th>产品业绩所属</th></tr>
+			                	<tr><td>
+          <select  id="product_1" name="product_1" class="form-control" style="width: 150px;">
+										<option value="-1">请选择产品</option>
+										<foreach name="product_list" key="ke" item="va" >
+											<option value="{$va.productid}"   >{$va.name}</option>
+				        				</foreach>
+									</select>
+									</td>
+										<td>
+										<select id="dep_1" name="dep_1" class="form-control" style="width: 150px;">
+										<option value="-1">请选择产品</option>
+										<foreach name="dep_list" key="k" item="v" >
+											<option value="{$v.dep_id}"> {$v.dep_name}</option>
+				        				</foreach>
+									</select>
+          				</td>
+									</tr> </tbody></table>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" onclick="i(this);" class="btn btn-default" data-dismiss="modal">确定</button>
+        </div>
+      </div>
+      
+    </div>
+
+              
+            </form>
+            <script type="text/javascript">
+            	function w(obj,num){
+            		if($(obj).html() == '修改'){
+            			$("#product_list_"+num).removeAttr('disabled')
+	            		$("#dep_list_"+num).removeAttr('disabled')
+	            		$(obj).html('确定')
+            		}else{
+            			var name = $("#product_list_"+num).find("option:selected").text();
+            			var value= $("#dep_list_"+num).find("option:selected").val()
+            			var userid= "{$info.userid}";
+            			var mag = 0;
+	        			$('.product_list').each(function(index,domEle){
+	        				if($(domEle).find("option:selected").text() == name){
+	        					mag += 1;
+	        				}
+	        			})
+						if(mag > 1){
+							alert('该产品所属业绩方案已存在');
+							return false;
+						}
+            			$.ajax({
+            				type:"get",
+            				url:"{:U('User/update')}",
+            				async:true,
+            				data:'name='+name+'&value='+value+'&userid='+userid+'&key='+num,
+            				dataType:'json',
+            				success:function(result){
+            					if(result.code == 0){
+            						$("#product_list_"+num).attr('disabled','disabled');
+				            		$("#dep_list_"+num).attr('disabled','disabled');
+				            		$(obj).html('修改');
+            					}else{
+            						alert("修改失败");
+            					}
+            				},
+            			});
+            		}
+            	}
+            	function remove(obj,num){
+        			var userid= "{$info.userid}";
+        			$.ajax({
+        				type:"get",
+        				url:"{:U('User/remove')}",
+        				async:true,
+        				data:'userid='+userid+'&key='+num,
+        				dataType:'json',
+        				success:function(result){
+        					if(result.code == 0){
+        						alert("删除成功");
+        						location.reload();
+        					}else{
+        						alert("修改失败");
+        					}
+        				},
+        			});
+            	}
+            	function i(obj){
+            		var name = $("#product_1").find("option:selected").text();
+        			var value= $("#dep_1" ).find("option:selected").val()
+        			if((value == -1 )|| (name == '请选择产品')){
+        				alert('所选值为空');
+        				return false;
+        			}
+        			var mag = 0;
+        			$('.product_list').each(function(index,domEle){
+        				if($(domEle).find("option:selected").text() == name){
+        					mag = 2;
+        				}
+        			})
+					if(mag == 2){
+						alert('该产品所属业绩方案已存在');
+						return false;
+					}
+        			var userid= "{$info.userid}";
+        			$.ajax({
+        				type:"get",
+        				url:"{:U('User/update')}",
+        				async:true,
+        				data:'name='+name+'&value='+value+'&userid='+userid,
+        				dataType:'json',
+        				success:function(result){
+        					if(result.code == 0){
+        						alert("修改成功");
+        						location.reload();
+        						
+        					}else{
+        						alert("修改失败");
+        					}
+        				},
+        			});
+            		
+            	}
+            	function w_dep(obj){
+					if($(obj).html() == '修改'){
+	            		$("#dep_now").removeAttr('disabled')
+	            		$(obj).html('确定')
+            		}else{
+	        			var dep_now= $("#dep_now" ).find("option:selected").val()
+	        			var userid= "{$info.userid}";
+	        			$.ajax({
+	        				type:"get",
+	        				url:"{:U('User/update_dep')}",
+	        				async:true,
+	        				data:'dep_now='+dep_now+'&userid='+userid,
+	        				dataType:'json',
+	        				success:function(result){
+	        					if(result.code == 0){
+	        						alert("修改成功");
+	        						location.reload();
+	        						
+	        					}else{
+	        						alert("修改失败");
+	        					}
+	        				},
+	        			});
+	        		}
+            	}
+            </script>
+          </div>
+          
+
+

@@ -205,6 +205,8 @@ class IndexController extends AuthController {
 
     //获取userI的信息
     function get_user_message($userId,$Token){
+        $M_mployee = M('mployee');
+    	
         $Url = "https://oapi.dingtalk.com/user/get?access_token={$Token}&userid={$userId}";
          $User_contents = json_decode(file_get_contents($Url));
         //var_dump($User_contents);
@@ -227,7 +229,10 @@ class IndexController extends AuthController {
         if(empty($User_message[dep_now])){
             $User_message[dep_now] = explode(':',$deps[0])[0];//当前所在部门
         }
-
+        $info =  $M_mployee->where("userid='$User_contents->userid'")->field('userid,dep_now')->find();
+        if($info && $info['dep_now']){
+        	$User_message[dep_now] = $info['dep_now'];
+        }
        // $User_message[unionid] = $User_contents->unionid;//全局范围内唯一标识一个用户的身份
 
         return $User_message;
