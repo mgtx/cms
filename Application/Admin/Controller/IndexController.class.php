@@ -229,8 +229,8 @@ class IndexController extends AuthController {
         if(empty($User_message[dep_now])){
             $User_message[dep_now] = explode(':',$deps[0])[0];//当前所在部门
         }
-        $info =  $M_mployee->where("userid='$User_contents->userid'")->field('userid,dep_now')->find();
-        if($info && $info['dep_now']){
+        $info =  $M_mployee->where("userid='$User_contents->userid'")->field('userid,dep_now,dep_now_status')->find();
+        if($info && $info['dep_now_status']){
         	$User_message[dep_now] = $info['dep_now'];
         }
        // $User_message[unionid] = $User_contents->unionid;//全局范围内唯一标识一个用户的身份

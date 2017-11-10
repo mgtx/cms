@@ -138,7 +138,8 @@ class UserController extends AuthController{
 			$userid  = I('get.userid');
 			
 			$w = array(
-				'dep_now'=>$dep_now
+				'dep_now'=>$dep_now,
+				'dep_now_status'=>1
 			);
 			$where = array(
 				'userid'=>$userid
