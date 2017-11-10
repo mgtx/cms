@@ -429,9 +429,9 @@ function enterpriseEmail($emailBase,$emailSale){
 }
 
 /**
- * 模板建设
- * @param $result
- * @return array
+ * * 模板建设
+ * @param $sale
+ * @return float|int
  */
 
 function templateConstruction($sale){
@@ -441,10 +441,28 @@ function templateConstruction($sale){
     return round(($sale*0.1))<50 ? 50 :round($sale*0.1);
 }
 
+/**
+ * 定制网站
+ * @param $result
+ * @return float|int
+ */
 function customWebsite($result){
     if($result == 0 ){
         return 0;
     }
     return round(($result*0.1))<50 ? 50 :round($result*0.1);
 }
+
+/**
+ * 网建代理
+ * @param $result
+ * @return float|int
+ */
+function networkAgent($result){
+    if($result == 0){
+        return 0;
+    }
+    return round($result*0.03);
+}
+
 
